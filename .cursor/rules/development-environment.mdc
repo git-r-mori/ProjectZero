@@ -1,0 +1,30 @@
+---
+description: 開発環境の設定（シェル、ツール）
+alwaysApply: true
+---
+
+# 開発環境設定
+
+## シェル
+
+- **PowerShell を使用する**（コマンドプロンプトではなく）
+- Windows 環境では bash 構文（HEREDOC 等）は使用しない
+- PowerShell 固有の構文を使用すること
+
+### git commit の例
+
+```powershell
+# ✅ GOOD - PowerShell で動作
+git commit -m "feat(app): Add feature" -m "Description here"
+
+# ❌ BAD - bash 構文（PowerShell では動作しない）
+git commit -m "$(cat <<'EOF'
+message
+EOF
+)"
+```
+
+## パス
+
+- Windows パス区切りは `\` または `/` を使用
+- パスにスペースが含まれる場合は引用符で囲む
