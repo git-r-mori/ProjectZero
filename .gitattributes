@@ -1,0 +1,220 @@
+# ==============================================================================
+# ProjectZero モノレポ用 .gitattributes
+# ==============================================================================
+# ディレクトリ構成：
+#   ProjectZero/           (モノレポ ルート)
+#   ├── app/               (Unreal Engine 5.7.2 C++ プロジェクト)
+#   ├── web/               (Next.js フロントエンド)
+#   └── server/            (AWS CDK / TypeScript バックエンド)
+#
+# このファイルは Git LFS (Large File Storage) の設定を定義します。
+# バイナリファイルを効率的に管理し、リポジトリのサイズを最適化します。
+#
+# Git LFS を有効にするには：
+#   1. Git LFS をインストール: https://git-lfs.github.com/
+#   2. リポジトリで初期化: git lfs install
+#   3. このファイルをコミットすると自動的に LFS 追跡が有効になります
+# ==============================================================================
+
+
+# ==============================================================================
+# 基本設定 - テキストファイルの改行コード
+# ==============================================================================
+
+# デフォルトで自動改行コード変換
+* text=auto
+
+# ソースコードは LF に統一（クロスプラットフォーム開発向け）
+*.c text eol=lf
+*.cpp text eol=lf
+*.h text eol=lf
+*.hpp text eol=lf
+*.cs text eol=lf
+*.py text eol=lf
+*.js text eol=lf
+*.ts text eol=lf
+*.tsx text eol=lf
+*.jsx text eol=lf
+*.json text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.md text eol=lf
+*.txt text eol=lf
+*.html text eol=lf
+*.css text eol=lf
+*.scss text eol=lf
+*.ini text eol=lf
+
+# シェルスクリプト
+*.sh text eol=lf
+*.bash text eol=lf
+
+# Windows バッチファイル
+*.bat text eol=crlf
+*.cmd text eol=crlf
+*.ps1 text eol=crlf
+
+
+# ==============================================================================
+# Git LFS - Unreal Engine アセット
+# ==============================================================================
+
+# Unreal Engine アセットファイル（最も重要）
+# ※ これらのファイルはバイナリ形式で、サイズが大きくなりがち
+*.uasset filter=lfs diff=lfs merge=lfs -text
+*.umap filter=lfs diff=lfs merge=lfs -text
+*.upk filter=lfs diff=lfs merge=lfs -text
+*.udk filter=lfs diff=lfs merge=lfs -text
+
+# Unreal Engine ローカライゼーション
+*.locres filter=lfs diff=lfs merge=lfs -text
+
+
+# ==============================================================================
+# Git LFS - 実行ファイル・ライブラリ
+# ==============================================================================
+
+# Windows
+*.exe filter=lfs diff=lfs merge=lfs -text
+*.dll filter=lfs diff=lfs merge=lfs -text
+*.pdb filter=lfs diff=lfs merge=lfs -text
+*.lib filter=lfs diff=lfs merge=lfs -text
+
+# Linux
+*.so filter=lfs diff=lfs merge=lfs -text
+*.a filter=lfs diff=lfs merge=lfs -text
+
+# macOS
+*.dylib filter=lfs diff=lfs merge=lfs -text
+*.app filter=lfs diff=lfs merge=lfs -text
+
+
+# ==============================================================================
+# Git LFS - 画像・テクスチャ
+# ==============================================================================
+
+# 一般的な画像形式
+*.png filter=lfs diff=lfs merge=lfs -text
+*.jpg filter=lfs diff=lfs merge=lfs -text
+*.jpeg filter=lfs diff=lfs merge=lfs -text
+*.gif filter=lfs diff=lfs merge=lfs -text
+*.bmp filter=lfs diff=lfs merge=lfs -text
+*.tga filter=lfs diff=lfs merge=lfs -text
+*.tiff filter=lfs diff=lfs merge=lfs -text
+*.tif filter=lfs diff=lfs merge=lfs -text
+*.ico filter=lfs diff=lfs merge=lfs -text
+*.webp filter=lfs diff=lfs merge=lfs -text
+
+# HDR / プロフェッショナル形式
+*.exr filter=lfs diff=lfs merge=lfs -text
+*.hdr filter=lfs diff=lfs merge=lfs -text
+*.dds filter=lfs diff=lfs merge=lfs -text
+
+# デザインソフトウェア
+*.psd filter=lfs diff=lfs merge=lfs -text
+*.psb filter=lfs diff=lfs merge=lfs -text
+*.ai filter=lfs diff=lfs merge=lfs -text
+*.svg filter=lfs diff=lfs merge=lfs -text
+
+
+# ==============================================================================
+# Git LFS - 3D モデル・アニメーション
+# ==============================================================================
+
+# 汎用 3D 形式
+*.fbx filter=lfs diff=lfs merge=lfs -text
+*.obj filter=lfs diff=lfs merge=lfs -text
+*.gltf filter=lfs diff=lfs merge=lfs -text
+*.glb filter=lfs diff=lfs merge=lfs -text
+*.dae filter=lfs diff=lfs merge=lfs -text
+*.abc filter=lfs diff=lfs merge=lfs -text
+
+# Blender
+*.blend filter=lfs diff=lfs merge=lfs -text
+*.blend1 filter=lfs diff=lfs merge=lfs -text
+
+# Autodesk
+*.max filter=lfs diff=lfs merge=lfs -text
+*.3ds filter=lfs diff=lfs merge=lfs -text
+
+# Maya
+*.ma filter=lfs diff=lfs merge=lfs -text
+*.mb filter=lfs diff=lfs merge=lfs -text
+
+# ZBrush
+*.ztl filter=lfs diff=lfs merge=lfs -text
+*.zpr filter=lfs diff=lfs merge=lfs -text
+
+# Substance
+*.spp filter=lfs diff=lfs merge=lfs -text
+*.sbsar filter=lfs diff=lfs merge=lfs -text
+
+
+# ==============================================================================
+# Git LFS - オーディオ
+# ==============================================================================
+
+# 非圧縮・ロスレス
+*.wav filter=lfs diff=lfs merge=lfs -text
+*.aiff filter=lfs diff=lfs merge=lfs -text
+*.aif filter=lfs diff=lfs merge=lfs -text
+*.flac filter=lfs diff=lfs merge=lfs -text
+
+# 圧縮形式
+*.mp3 filter=lfs diff=lfs merge=lfs -text
+*.ogg filter=lfs diff=lfs merge=lfs -text
+*.wma filter=lfs diff=lfs merge=lfs -text
+*.m4a filter=lfs diff=lfs merge=lfs -text
+*.aac filter=lfs diff=lfs merge=lfs -text
+
+# プロオーディオ
+*.cue filter=lfs diff=lfs merge=lfs -text
+
+
+# ==============================================================================
+# Git LFS - 動画
+# ==============================================================================
+
+*.mp4 filter=lfs diff=lfs merge=lfs -text
+*.mov filter=lfs diff=lfs merge=lfs -text
+*.avi filter=lfs diff=lfs merge=lfs -text
+*.wmv filter=lfs diff=lfs merge=lfs -text
+*.mkv filter=lfs diff=lfs merge=lfs -text
+*.webm filter=lfs diff=lfs merge=lfs -text
+*.m4v filter=lfs diff=lfs merge=lfs -text
+*.mpg filter=lfs diff=lfs merge=lfs -text
+*.mpeg filter=lfs diff=lfs merge=lfs -text
+*.bik filter=lfs diff=lfs merge=lfs -text
+
+
+# ==============================================================================
+# Git LFS - フォント
+# ==============================================================================
+
+*.ttf filter=lfs diff=lfs merge=lfs -text
+*.otf filter=lfs diff=lfs merge=lfs -text
+*.woff filter=lfs diff=lfs merge=lfs -text
+*.woff2 filter=lfs diff=lfs merge=lfs -text
+*.eot filter=lfs diff=lfs merge=lfs -text
+
+
+# ==============================================================================
+# Git LFS - 圧縮・アーカイブ
+# ==============================================================================
+
+*.zip filter=lfs diff=lfs merge=lfs -text
+*.rar filter=lfs diff=lfs merge=lfs -text
+*.7z filter=lfs diff=lfs merge=lfs -text
+*.gz filter=lfs diff=lfs merge=lfs -text
+*.tar filter=lfs diff=lfs merge=lfs -text
+*.pak filter=lfs diff=lfs merge=lfs -text
+
+
+# ==============================================================================
+# Git LFS - ドキュメント（大容量になりがちなもの）
+# ==============================================================================
+
+*.pdf filter=lfs diff=lfs merge=lfs -text
+*.docx filter=lfs diff=lfs merge=lfs -text
+*.xlsx filter=lfs diff=lfs merge=lfs -text
+*.pptx filter=lfs diff=lfs merge=lfs -text

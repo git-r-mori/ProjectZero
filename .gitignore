@@ -1,0 +1,313 @@
+# ==============================================================================
+# ProjectZero モノレポ用 .gitignore
+# ==============================================================================
+# ディレクトリ構成：
+#   ProjectZero/           (モノレポ ルート)
+#   ├── app/               (Unreal Engine 5.7.2 C++ プロジェクト)
+#   ├── web/               (Next.js フロントエンド)
+#   └── server/            (AWS CDK / TypeScript バックエンド)
+# ==============================================================================
+
+
+# ==============================================================================
+# app/ (Unreal Engine 5) - 一時ファイル・ビルド成果物
+# ==============================================================================
+
+# ビルド成果物（コンパイル済みバイナリ）
+# ※ ローカルでビルドされるため、各開発者の環境で再生成可能
+app/Binaries/
+
+# 派生データキャッシュ（エディタが自動生成するキャッシュ）
+# ※ アセットの処理済みデータが格納される。再生成可能
+app/DerivedDataCache/
+
+# 中間ファイル（ビルド中に生成される一時ファイル）
+# ※ .obj, .pch, シェーダーキャッシュなどが含まれる
+app/Intermediate/
+
+# 保存データ（ログ、バックアップ、オートセーブなど）
+# ※ 開発者固有の一時データ
+app/Saved/
+
+# ビルドフォルダ（パッケージ化されたゲームビルド）
+app/Build/
+
+# プラグインのビルド成果物
+app/Plugins/**/Binaries/
+app/Plugins/**/Intermediate/
+
+# Unreal Engine の一時ファイル
+app/*.VC.db
+app/*.VC.db-shm
+app/*.VC.db-wal
+app/*.VC.opendb
+app/*.opensdf
+app/*.sdf
+app/*.suo
+app/*.user
+app/*.sln.docstates
+
+
+# ==============================================================================
+# app/ (Unreal Engine 5) - Visual Studio 関連
+# ==============================================================================
+
+# Visual Studio のソリューション設定・キャッシュ
+app/.vs/
+
+# ユーザー固有のプロジェクト設定
+app/*.vcxproj.user
+app/*.vcxproj.filters.user
+
+
+# ==============================================================================
+# web/ (Next.js) - フロントエンド関連
+# ==============================================================================
+
+# 依存関係（npm/yarn/pnpm でインストールされるパッケージ）
+web/node_modules/
+
+# Next.js ビルド成果物
+web/.next/
+web/out/
+
+# Vercel 設定
+web/.vercel/
+
+# 環境変数ファイル（機密情報を含む可能性があるため）
+web/.env
+web/.env.local
+web/.env.development.local
+web/.env.test.local
+web/.env.production.local
+
+# キャッシュファイル
+web/.cache/
+web/.turbo/
+web/.swc/
+
+# テストカバレッジ
+web/coverage/
+
+# TypeScript ビルド情報
+web/*.tsbuildinfo
+web/next-env.d.ts
+
+# Storybook ビルド
+web/storybook-static/
+
+# PWA 関連
+web/public/sw.js
+web/public/workbox-*.js
+
+
+# ==============================================================================
+# server/ (AWS CDK / TypeScript) - バックエンド関連
+# ==============================================================================
+
+# 依存関係
+server/node_modules/
+
+# TypeScript コンパイル出力
+server/dist/
+server/build/
+server/lib/
+
+# CDK 成果物
+server/cdk.out/
+server/.cdk.staging/
+
+# 環境変数ファイル
+server/.env
+server/.env.local
+server/.env.*
+
+# キャッシュ
+server/.cache/
+server/.turbo/
+
+# テストカバレッジ
+server/coverage/
+
+# TypeScript ビルド情報
+server/*.tsbuildinfo
+
+# AWS SAM 関連
+server/.aws-sam/
+
+# Lambda レイヤー
+server/layers/
+
+
+# ==============================================================================
+# ルート - 共通設定
+# ==============================================================================
+
+# ルートレベルの node_modules（モノレポツール用）
+/node_modules/
+
+# pnpm ワークスペース / Turborepo キャッシュ
+.turbo/
+.pnpm-store/
+
+# 環境変数（ルートレベル）
+.env
+.env.local
+.env.*.local
+
+
+# ==============================================================================
+# IDE - 共通設定
+# ==============================================================================
+
+# Visual Studio
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.VC.db
+*.VC.db-shm
+*.VC.db-wal
+*.VC.opendb
+
+# VS Code / Cursor
+# ※ 共有したい設定がある場合は .vscode/settings.json のみ追跡することも可能
+.vscode/
+.cursor/
+
+# JetBrains IDE (Rider, WebStorm など)
+.idea/
+*.iml
+
+
+# ==============================================================================
+# ビルド成果物 - 共通
+# ==============================================================================
+
+# IntelliSense / コンパイラ中間ファイル
+*.db
+*.ipch
+*.pch
+*.obj
+*.pdb
+*.idb
+*.ilk
+*.exp
+*.lib
+
+# NuGet パッケージ
+packages/
+
+
+# ==============================================================================
+# OS - システムファイル
+# ==============================================================================
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+
+# ==============================================================================
+# Node.js - 共通
+# ==============================================================================
+
+# npm デバッグログ
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# 依存関係ロックファイル（必要に応じてコメントアウト解除）
+# package-lock.json
+# yarn.lock
+# pnpm-lock.yaml
+
+# npm キャッシュ
+.npm/
+
+# eslint / stylelint キャッシュ
+.eslintcache
+.stylelintcache
+
+# Yarn
+.yarn/cache/
+.yarn/unplugged/
+.yarn/build-state.yml
+.yarn/install-state.gz
+.pnp.*
+
+
+# ==============================================================================
+# Python (UE5 Python スクリプト用)
+# ==============================================================================
+
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+.Python
+pip-log.txt
+pip-delete-this-directory.txt
+.venv/
+venv/
+ENV/
+
+
+# ==============================================================================
+# その他 - 一般的な除外対象
+# ==============================================================================
+
+# エディタのバックアップファイル
+*~
+*.swp
+*.swo
+*.bak
+*.tmp
+*.temp
+
+# 圧縮ファイル（ビルドアーティファクト）
+*.zip
+*.tar.gz
+*.rar
+*.7z
+
+# 独自のローカル設定ファイル
+local.settings.json
+*.local
+
+
+# ==============================================================================
+# GitHub LFS で管理推奨のファイル（参考情報）
+# ==============================================================================
+# 以下のファイル拡張子は Git LFS での管理を推奨します。
+# .gitattributes ファイルで LFS 設定を行ってください。
+#
+# --- Unreal Engine アセット (app/) ---
+# *.uasset    - Unreal アセット（テクスチャ、メッシュ、ブループリント等）
+# *.umap      - Unreal マップファイル
+# *.upk       - Unreal パッケージ
+#
+# --- 実行ファイル・ライブラリ ---
+# *.exe, *.dll, *.pdb, *.so, *.dylib
+#
+# --- メディアファイル ---
+# 画像: *.png, *.jpg, *.tga, *.psd, *.exr
+# 3D:   *.fbx, *.blend, *.obj, *.gltf
+# 音声: *.wav, *.mp3, *.ogg
+# 動画: *.mp4, *.mov
+#
+# ==============================================================================
