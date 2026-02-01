@@ -174,7 +174,10 @@ server/layers/
 # VS Code / Cursor
 # ※ 共有したい設定がある場合は .vscode/settings.json のみ追跡することも可能
 .vscode/
-.cursor/
+
+# Cursor（ルールファイルは共有、その他は除外）
+.cursor/*
+!.cursor/rules/
 
 # JetBrains IDE (Rider, WebStorm など)
 .idea/

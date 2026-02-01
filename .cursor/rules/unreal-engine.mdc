@@ -1,0 +1,123 @@
+---
+description: Unreal Engine 5.7.2 C++ コーディング規約と開発ガイドライン
+globs: app/Source/**/*
+alwaysApply: false
+---
+
+# Unreal Engine 5.7.2 C++ 開発規約
+
+## 命名規則（Epic Games 公式準拠）
+
+すべてのクラス名・変数名は **PascalCase** を使用する。
+
+### 接頭辞ルール（必須）
+
+| 接頭辞 | 用途 | 例 |
+|--------|------|-----|
+| `A` | Actor 継承クラス | `AProjectZeroCharacter` |
+| `U` | UObject 継承クラス | `UHealthComponent` |
+| `F` | 構造体・非UObject クラス | `FPlayerData` |
+| `T` | テンプレート | `TArray`, `TMap` |
+| `I` | インターフェース | `IDamageable` |
+| `E` | 列挙型 | `EGameState` |
+| `b` | bool 変数 | `bIsAlive` |
+
+## UPROPERTY / UFUNCTION 規約
+
+```cpp
+// ✅ GOOD - Category と適切な権限を指定
+UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ProjectZero|Combat")
+float MaxHealth = 100.0f;
+
+UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "ProjectZero|State")
+bool bIsAlive = true;
+
+UFUNCTION(BlueprintCallable, Category = "ProjectZero|Actions")
+void TakeDamage(float DamageAmount);
+
+// ❌ BAD - Category なし、権限不明確
+UPROPERTY()
+float Health;
+```
+
+## Live Coding 最適化
+
+ヘッダー変更は **フルリビルド** を要求するため、以下を徹底する：
+
+1. **ヘッダー (.h)**: 宣言のみ、インライン実装は避ける
+2. **実装 (.cpp)**: ロジックはすべてここに記述
+3. **前方宣言を活用**: `#include` を減らし依存を最小化
+
+```cpp
+// ✅ GOOD - 前方宣言でヘッダー依存を削減
+class UHealthComponent;  // 前方宣言
+
+UPROPERTY()
+TObjectPtr<UHealthComponent> HealthComp;
+
+// ❌ BAD - 不要な #include
+#include "HealthComponent.h"  // .cpp に移動すべき
+```
+
+## UE 5.7.2 推奨パターン
+
+### Smart Pointer（TObjectPtr 推奨）
+
+```cpp
+// ✅ UE5 推奨 - TObjectPtr
+UPROPERTY()
+TObjectPtr<UStaticMeshComponent> MeshComp;
+
+// ❌ 旧式 - 生ポインタ
+UPROPERTY()
+UStaticMeshComponent* MeshComp;
+```
+
+### コンテナは Unreal 固有を使用
+
+```cpp
+// ✅ Unreal コンテナ
+TArray<FVector> Locations;
+TMap<FName, int32> ScoreMap;
+TSet<AActor*> TrackedActors;
+
+// ❌ STL コンテナ（使用禁止）
+std::vector<FVector> Locations;
+std::map<std::string, int> ScoreMap;
+```
+
+### PCG (Procedural Content Generation) 活用
+
+UE 5.7.2 の PCG フレームワークを積極的に活用：
+
+```cpp
+UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ProjectZero|PCG")
+TObjectPtr<UPCGGraph> ProceduralGraph;
+```
+
+## クラステンプレート
+
+新規 Actor 作成時の基本構造：
+
+```cpp
+// ProjectZeroActor.h
+#pragma once
+#include "CoreMinimal.h"
+#include "GameFramework/Actor.h"
+#include "ProjectZeroActor.generated.h"
+
+UCLASS()
+class PROJECTZERO_API AProjectZeroActor : public AActor
+{
+    GENERATED_BODY()
+
+public:
+    AProjectZeroActor();
+
+protected:
+    virtual void BeginPlay() override;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ProjectZero")
+    float ExampleValue = 1.0f;
+};
+```

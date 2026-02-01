@@ -1,0 +1,100 @@
+---
+description: ProjectZero プロジェクト全体の共通ルール
+alwaysApply: true
+---
+
+# ProjectZero 開発ガイドライン
+
+## 言語設定
+
+- **すべての応答は日本語で行う**
+- コード内のコメントは英語を基本とする（国際化対応）
+- ドキュメント（README 等）は日本語で記述
+
+## プロジェクト概要
+
+ProjectZero は **Unreal Engine 5.7.2** と **AWS クラウド** を高度に連携させる次世代ゲーム開発プロジェクト。
+
+### ビジョン
+
+> ゲームエンジンとクラウドの境界を超える
+
+- リアルタイム通信によるライブオペレーション
+- サーバーレスアーキテクチャによるスケーラビリティ
+- AI 支援開発による生産性の最大化
+
+## モノレポ構成
+
+```
+ProjectZero/
+├── app/      # Unreal Engine 5.7.2 (C++ / Blueprint)
+├── infra/    # AWS CDK / TypeScript (予定)
+└── web/      # Next.js フロントエンド (予定)
+```
+
+| ディレクトリ | 担当領域 | 主要技術 |
+|-------------|---------|---------|
+| `app/` | ゲーム本体 | UE5 C++, Blueprint |
+| `infra/` | クラウドインフラ | AWS CDK, Lambda, DynamoDB |
+| `web/` | 管理画面・Web UI | Next.js, React, TailwindCSS |
+
+## コミットメッセージ規約
+
+**Conventional Commits** 形式を使用：
+
+```
+<type>(<scope>): <subject>
+
+<body>
+```
+
+### Type 一覧
+
+| Type | 用途 |
+|------|------|
+| `feat` | 新機能追加 |
+| `fix` | バグ修正 |
+| `docs` | ドキュメントのみ |
+| `style` | フォーマット変更（動作に影響なし） |
+| `refactor` | リファクタリング |
+| `perf` | パフォーマンス改善 |
+| `test` | テスト追加・修正 |
+| `chore` | ビルド・ツール関連 |
+
+### Scope 一覧
+
+| Scope | 対象 |
+|-------|------|
+| `app` | UE5 プロジェクト |
+| `infra` | AWS CDK |
+| `web` | Next.js |
+| `root` | ルート設定 |
+
+### 例
+
+```
+feat(app): Add ZeroActor for system status display
+fix(infra): Correct Lambda timeout configuration
+docs(root): Update README with hardware specs
+```
+
+## AI アシスタントの振る舞い
+
+### 基本姿勢
+
+1. **慎重に変更**: 大規模な変更前には必ず確認を取る
+2. **既存コードを尊重**: 不要な書き換えを避ける
+3. **段階的に実装**: 一度に多くの変更をしない
+
+### 確認が必要なケース
+
+- 複数ファイルにまたがる変更
+- アーキテクチャに影響する変更
+- 削除を伴う変更
+- 外部依存の追加
+
+### 推奨アクション
+
+- 変更前に影響範囲を説明する
+- 複数の選択肢がある場合は提示して選ばせる
+- 完了後に次のステップを提案する
