@@ -24,6 +24,16 @@ EOF
 )"
 ```
 
+## コマンドチェーン
+
+```powershell
+# ✅ GOOD - 順次実行（セミコロン区切り）
+git add .; git commit -m "message"
+
+# ❌ BAD - && は古い PowerShell では動作しない
+git add . && git commit -m "message"
+```
+
 ## パス
 
 - Windows パス区切りは `\` または `/` を使用
